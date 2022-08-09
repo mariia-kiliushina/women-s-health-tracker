@@ -1,18 +1,17 @@
 import { FC } from 'react'
-// import { Provider } from 'react-redux'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-import Input from '#components/Input'
+// import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Input from './components/Input/index'
+import store from './store'
 
 const App: FC = () => {
   return (
-    // <Provider store={store}>
-    <Router>
-      <div className="main">
-        <Route path="/" element={Input} />
+    <Provider store={store}>
+      <div>
+        <Input />
       </div>
-    </Router>
-    // </Provider>
+    </Provider>
   )
 }
 

@@ -1,7 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 let config = {
   entry: './src/index.tsx',
@@ -64,23 +62,16 @@ let config = {
       },
     ],
   },
-  optimization: {
-    minimizer: [new CssMinimizerPlugin()],
-    minimize: true,
-  },
   resolve: {
     alias: {
-      '#components': path.resolve(process.cwd(), 'src/components'),
-      '#assets': path.resolve(process.cwd(), 'src/assets'),
+      '#components': path.resolve(process.cwd(), './src/components'),
+      '#assets': path.resolve(process.cwd(), './src/assets'),
     },
     extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
-    new MiniCssExtractPlugin({
-      filename: './bundle.css',
+      template: './public/index.html',
     }),
   ],
   performance: {
@@ -88,6 +79,6 @@ let config = {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
-};
+}
 
-module.exports = config;
+module.exports = config
