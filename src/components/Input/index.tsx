@@ -1,16 +1,16 @@
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { addTrack } from '../../store/sliceData'
+import { postData } from '../../store/sliceData'
 
 const Input: FC = () => {
+  const dispatch = useDispatch()
   const getTodatDateString = () => {
     const currentDate = new Date().toJSON().slice(0, 10)
     return currentDate
   }
-  const dispatch = useDispatch()
   const [error, setError] = useState()
-  const [state, setState] = useState({ date: getTodatDateString(), type: '' })
+  const [state, setState] = useState({ id: 1, date: getTodatDateString(), type: '' })
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -19,7 +19,10 @@ const Input: FC = () => {
       setError('Choose type')
       return
     }
-    dispatch(addTrack(state))
+    //@ts-ignore
+    setError('')
+    //@ts-ignore
+    dispatch(postData(state))
   }
   const onChange = (event: any) => {
     const name = event.currentTarget.name

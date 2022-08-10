@@ -1,41 +1,68 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface Track {
   id: number
   date: string
   type: string
 }
-export type IState = Record<number, Track>
+export type IState = {
+  loading: boolean
+  error: string
+  tracks: Record<number, Track>
+}
 
-const initialState: IState = {}
+const initialState: IState = {
+  loading: false,
+  error: '',
+  tracks: {},
+}
+
+const URL = 'http://localhost:8080/api/periods'
+export const getData = createAsyncThunk('getData', async () => {
+  const response = await fetch(URL)
+  const json = await response.json()
+  const data = await json.periodsData
+  return data
+})
+
+export const postData = createAsyncThunk('postData', async (newTrack) => {
+  debugger
+  const response = await fetch(URL, {
+    method: 'POST',
+    body: JSON.stringify(newTrack),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  const answer = await response.json()
+  return answer
+})
 
 const dataSlice = createSlice({
   name: 'period-data',
   initialState,
-  reducers: {
-    addTrack: (state, action: PayloadAction<{ date: string; type: string }>) => {
-      let newTrackId = 1
-      if (Object.keys(state).length) {
-        const existingIdsAsNumbers = Object.keys(state).map((key) => parseInt(key))
-        newTrackId = Math.max(...existingIdsAsNumbers) + 1
-      }
-      state[newTrackId] = {
-        id: newTrackId,
-        date: action.payload.date,
-        type: action.payload.type,
-      }
+  reducers: {},
+  extraReducers: {
+    //@ts-ignore
+    [getData.pending]: (state) => {
+      state.loading = true
     },
-
-    fillState: (state, action: PayloadAction<{ date: string; type: string }>) => {
-      Object.entries(action.payload).forEach(([key, value]) => {
-        //@ts-ignore
-        state[key] = value
+    //@ts-ignore
+    [getData.fulfilled]: (state, action) => {
+      const data = action.payload
+      Object.entries(data).forEach(([key, value]) => {
+        state.tracks[Number(key)] = value
       })
-
-      state = action.payload
+      state.loading = false
+    },
+    //@ts-ignore
+    [getData.rejected]: (state, action) => {
+      state.error = action.error.message
+      state.loading = false
     },
   },
 })
 
 export default dataSlice.reducer
-export const { addTrack, fillState } = dataSlice.actions
+export const {} = dataSlice.actions
