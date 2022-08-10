@@ -5,9 +5,9 @@ export interface Track {
   date: string
   type: string
 }
-export type State = Record<number, Track>
+export type IState = Record<number, Track>
 
-const initialState: State = {
+const initialState: IState = {
   1: { id: 1, date: '23.09.2022', type: 'Had flows' },
 }
 
