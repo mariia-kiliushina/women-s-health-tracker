@@ -1,1 +1,1 @@
-web: npm buildExpress
+web: npm build
