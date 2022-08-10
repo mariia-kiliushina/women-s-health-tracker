@@ -6,18 +6,24 @@
   "scripts": {
     "build": "webpack",
     "start": "npx webpack serve --open --hot",
-    "tsc": "npx tsc"
+    "tsc": "npx tsc",
+    "express": "node express.js",
+    "startExpress": "npm-run-all -p start express",
+    "buildExpress": "npm-run-all -p build express"
+  },
+  "engines": {
+    "node": "16.x"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mariia-kiliushina/periods-tracker.git"
+    "url": "git+https://github.com/mariia-kiliushina/women-s-health-tracker.git"
   },
   "author": "Mariia Kiliushina",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/mariia-kiliushina/periods-tracker/issues"
+    "url": "https://github.com/mariia-kiliushina/women-s-health-tracker/issues"
   },
-  "homepage": "https://github.com/mariia-kiliushina/periods-tracker#readme",
+  "homepage": "https://github.com/mariia-kiliushina/women-s-health-tracker#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "@types/redux-logger": "^3.0.9",
@@ -38,10 +44,10 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.17.12",
     "@svgr/webpack": "^6.2.1",
-    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
     "@types/react": "^18.0.15",
@@ -51,21 +57,29 @@
     "css-minimizer-webpack-plugin": "^4.0.0",
     "eslint": "^8.16.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.3",
     "mini-css-extract-plugin": "^2.6.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
+    "react-scripts": "5.0.1",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "svg-url-loader": "^7.1.1",
+    "ts-jest": "^28.0.7",
     "ts-loader": "^9.3.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.6.4",
     "url-loader": "^4.1.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0",
-    "jest": "^28.1.3",
-    "react-scripts": "5.0.1",
-    "ts-jest": "^28.0.7",
-    "ts-node": "^10.9.1"
-  }
+    "webpack-dev-server": "^4.9.0"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "node",
+    "heroku",
+    "express"
+  ]
 }
