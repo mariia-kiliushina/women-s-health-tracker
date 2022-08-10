@@ -7,9 +7,7 @@ export interface Track {
 }
 export type IState = Record<number, Track>
 
-const initialState: IState = {
-  1: { id: 1, date: '23.09.2022', type: 'Had flows' },
-}
+const initialState: IState = {}
 
 const dataSlice = createSlice({
   name: 'period-data',
@@ -27,8 +25,17 @@ const dataSlice = createSlice({
         type: action.payload.type,
       }
     },
+
+    fillState: (state, action: PayloadAction<{ date: string; type: string }>) => {
+      Object.entries(action.payload).forEach(([key, value]) => {
+        //@ts-ignore
+        state[key] = value
+      })
+
+      state = action.payload
+    },
   },
 })
 
 export default dataSlice.reducer
-export const { addTrack } = dataSlice.actions
+export const { addTrack, fillState } = dataSlice.actions

@@ -1,18 +1,14 @@
 import { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { Store } from '../../store'
 import { addTrack } from '../../store/sliceData'
 
 const Input: FC = () => {
   const dispatch = useDispatch()
   const [state, setState] = useState({ date: '', type: '' })
-  const { ...tracks } = useSelector((state: Store) => state.dataSliceReducer)
 
   const onAdd = () => {
     dispatch(addTrack(state))
-    console.log(state)
-    console.log(tracks)
   }
   const onChange = (event: any) => {
     const name = event.currentTarget.name
