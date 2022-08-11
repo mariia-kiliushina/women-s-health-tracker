@@ -17,7 +17,7 @@ const initialState: IState = {
   tracks: [],
 }
 
-const URL = '/api/periods'
+const URL = 'https://women-health-backend.herokuapp.com/api/periods'
 
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
@@ -29,7 +29,6 @@ export const getData = createAsyncThunk('getData', async () => {
 export const postData = createAsyncThunk('postData', async (newTrack) => {
   const response = await fetch(URL, {
     body: JSON.stringify(newTrack),
-    credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
@@ -54,8 +53,6 @@ const dataSlice = createSlice({
     [getData.fulfilled]: (state, action) => {
       state.tracks = action.payload
       state.loading = false
-      console.log('state.tracks')
-      console.log(state.tracks)
     },
     //@ts-ignore
     [getData.rejected]: (state, action) => {
