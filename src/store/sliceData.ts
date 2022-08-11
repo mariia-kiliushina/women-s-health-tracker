@@ -22,12 +22,12 @@ const URL = '/api/periods'
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
   const json = await response.json()
-  const data = await json.periodsData
+  const data = await json
   return data
 })
 
 export const postData = createAsyncThunk('postData', async (newTrack) => {
-  const response = await fetch('/api/periods', {
+  const response = await fetch(URL, {
     body: JSON.stringify(newTrack),
     credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
