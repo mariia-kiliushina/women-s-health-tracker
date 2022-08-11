@@ -1,18 +1,28 @@
 import { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { Store } from '../../store'
-import { addTrack } from '../../store/sliceData'
+import { postData } from '../../store/sliceData'
 
 const Input: FC = () => {
   const dispatch = useDispatch()
-  const [state, setState] = useState({ date: '', type: '' })
-  const { ...tracks } = useSelector((state: Store) => state.dataSliceReducer)
+  const getTodatDateString = () => {
+    const currentDate = new Date().toJSON().slice(0, 10)
+    return currentDate
+  }
+  const [error, setError] = useState()
+  const [state, setState] = useState({ id: 1, type: '', date: getTodatDateString() })
 
-  const onAdd = () => {
-    dispatch(addTrack(state))
-    console.log(state)
-    console.log(tracks)
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    if (!state.type) {
+      //@ts-ignore
+      setError('Choose type')
+      return
+    }
+    //@ts-ignore
+    setError('')
+    //@ts-ignore
+    dispatch(postData(state))
   }
   const onChange = (event: any) => {
     const name = event.currentTarget.name
@@ -27,15 +37,21 @@ const Input: FC = () => {
 
   return (
     <>
-      <label>Input date</label>
-      <input name="date" type="date" onChange={onChange} />
-      <select name="type" onChange={onChange}>
-        <option value="Had flows">Had flows</option>
-        <option value="No flows">No flows</option>
-        <option value="Breast pain">Breast pain</option>
-        <option value="Meds">Meds</option>
-      </select>
-      <button onClick={onAdd}>Add data</button>
+      <form onSubmit={handleSubmit}>
+        <label>Input date</label>
+        <input name="date" type="date" onChange={onChange} value={state.date} />
+        <select name="type" defaultValue="choose" onChange={onChange}>
+          <option value="choose" hidden>
+            Choose event type
+          </option>
+          <option value="Had flows">Had flows</option>
+          <option value="No flows">No flows</option>
+          <option value="Breast pain">Breast pain</option>
+          <option value="Meds">Meds</option>
+        </select>
+        <button type="submit">Add data</button>
+        {error && <div>Choose type</div>}
+      </form>
     </>
   )
 }

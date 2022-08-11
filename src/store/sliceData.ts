@@ -1,34 +1,69 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface Track {
   id: number
   date: string
   type: string
 }
-export type IState = Record<number, Track>
+export type IState = {
+  loading: boolean
+  error: string
+  tracks: Record<number, Track>
+}
 
 const initialState: IState = {
-  1: { id: 1, date: '23.09.2022', type: 'Had flows' },
+  loading: false,
+  error: '',
+  tracks: [],
 }
+
+const URL = '/api/periods'
+
+export const getData = createAsyncThunk('getData', async () => {
+  const response = await fetch(URL)
+  const json = await response.json()
+  const data = await json
+  return data
+})
+
+export const postData = createAsyncThunk('postData', async (newTrack) => {
+  const response = await fetch(URL, {
+    body: JSON.stringify(newTrack),
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
+  const responseJSON = await response.json()
+  return responseJSON
+})
 
 const dataSlice = createSlice({
   name: 'period-data',
   initialState,
-  reducers: {
-    addTrack: (state, action: PayloadAction<{ date: string; type: string }>) => {
-      let newTrackId = 1
-      if (Object.keys(state).length) {
-        const existingIdsAsNumbers = Object.keys(state).map((key) => parseInt(key))
-        newTrackId = Math.max(...existingIdsAsNumbers) + 1
-      }
-      state[newTrackId] = {
-        id: newTrackId,
-        date: action.payload.date,
-        type: action.payload.type,
-      }
+  reducers: {},
+  extraReducers: {
+    //@ts-ignore
+    [postData.fulfilled]: (state, action) => {
+      state.tracks.push(action.payload)
+    },
+    //@ts-ignore
+    [getData.pending]: (state) => {
+      state.loading = true
+    },
+    //@ts-ignore
+    [getData.fulfilled]: (state, action) => {
+      state.tracks = action.payload
+      state.loading = false
+      console.log('state.tracks')
+      console.log(state.tracks)
+    },
+    //@ts-ignore
+    [getData.rejected]: (state, action) => {
+      state.error = action.error.message
+      state.loading = false
     },
   },
 })
 
 export default dataSlice.reducer
-export const { addTrack } = dataSlice.actions
+export const {} = dataSlice.actions

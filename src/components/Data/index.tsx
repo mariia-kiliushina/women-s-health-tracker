@@ -1,13 +1,32 @@
-import { FC } from 'react'
-import { useSelector } from 'react-redux'
+//@ts-nocheck
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Store } from '../../store'
+import { getData } from '../../store/sliceData'
 import styles from './index.module.scss'
 
 const Data: FC = () => {
-  const { ...tracks } = useSelector((state: Store) => state.dataSliceReducer)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getData())
+  }, [])
+
+  const { ...tracks } = useSelector((state: Store) => state.dataSliceReducer.tracks)
+  if (!tracks) {
+    return <div>Server error</div>
+  }
+
   return (
     <>
+      <button
+        onClick={() => {
+          dispatch(getData())
+        }}
+      >
+        getData
+      </button>
       {Object.entries(tracks).map(([id, track]) => {
         return (
           <div key={id} className={styles.container}>
