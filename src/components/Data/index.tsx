@@ -12,6 +12,7 @@ const Data: FC = () => {
   useEffect(() => {
     dispatch(getData())
   }, [])
+
   const { ...tracks } = useSelector((state: Store) => state.dataSliceReducer.tracks)
   if (!tracks) {
     return <div>Server error</div>
@@ -19,6 +20,13 @@ const Data: FC = () => {
 
   return (
     <>
+      <button
+        onClick={() => {
+          dispatch(getData())
+        }}
+      >
+        getData
+      </button>
       {Object.entries(tracks).map(([id, track]) => {
         return (
           <div key={id} className={styles.container}>

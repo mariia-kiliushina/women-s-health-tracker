@@ -14,10 +14,11 @@ export type IState = {
 const initialState: IState = {
   loading: false,
   error: '',
-  tracks: {},
+  tracks: [],
 }
 
-const URL = 'http://localhost:8080/api/periods'
+const URL = '/api/periods'
+
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
   const json = await response.json()
@@ -26,17 +27,14 @@ export const getData = createAsyncThunk('getData', async () => {
 })
 
 export const postData = createAsyncThunk('postData', async (newTrack) => {
-  debugger
-  const response = await fetch(URL, {
-    method: 'POST',
+  const response = await fetch('/api/periods', {
     body: JSON.stringify(newTrack),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
   })
-
-  const answer = await response.json()
-  return answer
+  const responseJSON = await response.json()
+  return responseJSON
 })
 
 const dataSlice = createSlice({
@@ -45,16 +43,19 @@ const dataSlice = createSlice({
   reducers: {},
   extraReducers: {
     //@ts-ignore
+    [postData.fulfilled]: (state, action) => {
+      state.tracks.push(action.payload)
+    },
+    //@ts-ignore
     [getData.pending]: (state) => {
       state.loading = true
     },
     //@ts-ignore
     [getData.fulfilled]: (state, action) => {
-      const data = action.payload
-      Object.entries(data).forEach(([key, value]) => {
-        state.tracks[Number(key)] = value
-      })
+      state.tracks = action.payload
       state.loading = false
+      console.log('state.tracks')
+      console.log(state.tracks)
     },
     //@ts-ignore
     [getData.rejected]: (state, action) => {

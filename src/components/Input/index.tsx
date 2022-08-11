@@ -10,7 +10,7 @@ const Input: FC = () => {
     return currentDate
   }
   const [error, setError] = useState()
-  const [state, setState] = useState({ id: 1, date: getTodatDateString(), type: '' })
+  const [state, setState] = useState({ id: 1, type: '', date: getTodatDateString() })
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
