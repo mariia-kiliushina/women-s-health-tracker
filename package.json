@@ -1,7 +1,7 @@
 {
   "name": "women-s-health-tracker",
   "version": "1.0.0",
-  "description": "helper to track women's health",
+  "description": "helper to track women's health and cycle",
   "main": "index.tsx",
   "scripts": {
     "build": "webpack",
