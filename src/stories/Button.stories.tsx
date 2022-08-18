@@ -26,6 +26,25 @@ Secondary.args = {
   text: 'Click',
 }
 
+export const Outlined = Template.bind({})
+
+Outlined.args = {
+  outlined: true,
+  text: 'Click',
+}
+export const Flat = Template.bind({})
+
+Flat.args = {
+  flat: true,
+  text: 'Click',
+}
+export const Danger = Template.bind({})
+
+Danger.args = {
+  danger: true,
+  text: 'Click',
+}
+
 export const Small = Template.bind({})
 
 Small.args = {
