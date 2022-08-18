@@ -4,6 +4,7 @@ export interface Track {
   id: number
   date: string
   type: string
+  severity: string
 }
 export type IState = {
   loading: boolean
@@ -18,12 +19,12 @@ const initialState: IState = {
 }
 
 const URL = 'https://women-health-backend.herokuapp.com/api/periods'
+// const URL = '/api/periods'
 
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
-  const json = await response.json()
-  const data = await json
-  return data
+  const responseJSON = await response.json()
+  return responseJSON
 })
 
 export const postData = createAsyncThunk('postData', async (newTrack) => {
@@ -43,7 +44,7 @@ const dataSlice = createSlice({
   extraReducers: {
     //@ts-ignore
     [postData.fulfilled]: (state, action) => {
-      state.tracks.push(action.payload)
+      state.tracks.push(...action.payload)
     },
     //@ts-ignore
     [getData.pending]: (state) => {

@@ -10,7 +10,7 @@ const Input: FC = () => {
     return currentDate
   }
   const [error, setError] = useState()
-  const [state, setState] = useState({ id: 1, type: '', date: getTodatDateString() })
+  const [state, setState] = useState({ type: '', date: getTodatDateString(), severity: '' })
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -41,13 +41,17 @@ const Input: FC = () => {
         <label>Input date</label>
         <input name="date" type="date" onChange={onChange} value={state.date} />
         <select name="type" defaultValue="choose" onChange={onChange}>
-          <option value="choose" hidden>
-            Choose event type
-          </option>
+          <option value="choose">Choose event type</option>
           <option value="Had flows">Had flows</option>
           <option value="No flows">No flows</option>
           <option value="Breast pain">Breast pain</option>
           <option value="Meds">Meds</option>
+        </select>
+        <select name="severity" defaultValue="choose" onChange={onChange}>
+          <option value="choose">Choose event type</option>
+          <option value="low">low</option>
+          <option value="medium">medium</option>
+          <option value="heavy">heavy</option>
         </select>
         <button type="submit">Add data</button>
         {error && <div>Choose type</div>}
