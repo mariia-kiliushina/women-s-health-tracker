@@ -18,7 +18,7 @@
 
 .periods {
   color: white;
-  background: rgb(239, 96, 120);
+  background: $color-heart-pink;
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -29,10 +29,6 @@
 .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
   background-color: $color-secondary;
   border-radius: 50%;
-}
-
-.hadPeriods {
-  background-color: pink;
 }
 
 .events {
@@ -86,7 +82,7 @@
 }
 
 .ant-badge-status-dot.ant-badge-status-error {
-  background-color: rgb(239, 96, 120);
+  background-color: $color-heart-pink;
   width: 5px;
   height: 5px;
   position: relative;
@@ -98,7 +94,7 @@
   content: '';
   width: 5px;
   height: 5px;
-  background-color: rgb(239, 96, 120);
+  background-color: $color-heart-pink;
   border-radius: 50%;
   left: -2.5px;
 }
@@ -107,7 +103,7 @@
   content: '';
   width: 5px;
   height: 5px;
-  background-color: rgb(239, 96, 120);
+  background-color: $color-heart-pink;
   border-radius: 50%;
   top: -2.5px;
   left: 0px;

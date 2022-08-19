@@ -1,0 +1,58 @@
+@use '../../sass/constants.scss' as *;
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 12px;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  box-shadow: none;
+}
+
+.standard.ant-select-single > .ant-select-selector {
+  border: 1px solid $color-primary;
+}
+.standard.ant-select-single > .ant-select-selector:hover {
+  border: 1px solid $color-primary-light;
+}
+
+.standard.ant-select.ant-select-single.ant-select-open.ant-select-show-arrow
+  > .ant-select-selector {
+  border: 1px solid $color-primary;
+  outline: 4px solid $color-primary-light;
+}
+
+.standard.ant-select.ant-select-single.ant-select-focused.ant-select-show-arrow
+  > .ant-select-selector {
+  border: 1px solid $color-primary;
+  outline: no;
+}
+
+.success.ant-select-single > .ant-select-selector {
+  border: 1px solid $color-supporting-sucess-green;
+}
+
+.error.ant-select-single > .ant-select-selector {
+  border: 1px solid $color-supporting-errorred;
+}
+
+.error.ant-select-single > .ant-select-selector:hover {
+  border: 1px solid $color-supporting-errorred-light;
+}
+
+.error.ant-select.ant-select-single.ant-select-open.ant-select-show-arrow > .ant-select-selector {
+  border: 1px solid $color-supporting-errorred;
+  outline: 4px solid $color-supporting-errorred-light;
+}
+
+.error.ant-select.ant-select-single.ant-select-focused.ant-select-show-arrow
+  > .ant-select-selector {
+  border: 1px solid $color-supporting-errorred;
+  outline: no;
+}
+
+.disabled.ant-select-single > .ant-select-selector {
+  cursor: default !important;
+  border: 1px solid $color-greyscale-line-grey;
+  background-color: $color-greyscale-background-grey;
+}
