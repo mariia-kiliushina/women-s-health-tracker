@@ -1,0 +1,52 @@
+@use '../../sass/constants.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 82px;
+  width: 82px;
+}
+
+.symptomImage {
+  border-radius: 50%;
+  height: 62px;
+  width: 62px;
+}
+
+.standard {
+  height: 60px;
+  width: 60px;
+}
+.marked {
+  border-radius: 50%;
+  border: 2px solid $color-primary;
+}
+
+.marked::before {
+  content: '';
+  background-image: url('../../../public/marked.png');
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  border: 1px solid white;
+  border-radius: 8.5px;
+  top: 57px;
+  left: 73px;
+  background-color: $color-primary;
+}
+
+.symptomText {
+  position: absolute;
+  top: 78px;
+  height: 16px;
+  font-size: 12px;
+  font-family: $font-family-primary;
+}
