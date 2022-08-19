@@ -1,0 +1,114 @@
+@use '../../sass/constants.scss' as *;
+
+.ant-picker-calendar-header {
+  justify-content: center;
+}
+
+.ant-picker-body {
+  width: 250px;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background-color: $color-secondary;
+  border-radius: 50%;
+}
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner .periods {
+  background-color: $color-secondary;
+}
+
+.periods {
+  color: white;
+  background: rgb(239, 96, 120);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 8px;
+  left: 0px;
+}
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background-color: $color-secondary;
+  border-radius: 50%;
+}
+
+.hadPeriods {
+  background-color: pink;
+}
+
+.events {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  list-style-type: none;
+  padding: 0px;
+  height: 15px;
+  column-gap: 5px;
+}
+
+.events > li {
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-picker-calendar-date-content {
+  position: absolute;
+  left: 0px;
+  top: -8px;
+  margin: 0 auto;
+  width: 24px;
+  height: 10px;
+}
+
+.ant-picker-cell > span {
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-picker-cell > span > span {
+  display: block;
+}
+
+.ant-badge-status-text {
+  display: none;
+}
+
+.ant-badge-status-dot {
+  display: block;
+}
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border: 1px solid $color-secondary;
+  border-radius: 50%;
+}
+
+.ant-badge-status-dot.ant-badge-status-error {
+  background-color: rgb(239, 96, 120);
+  width: 5px;
+  height: 5px;
+  position: relative;
+  transform: rotate(45deg);
+  border-radius: 0;
+}
+.ant-badge-status-dot.ant-badge-status-error::before {
+  position: absolute;
+  content: '';
+  width: 5px;
+  height: 5px;
+  background-color: rgb(239, 96, 120);
+  border-radius: 50%;
+  left: -2.5px;
+}
+.ant-badge-status-dot.ant-badge-status-error::after {
+  position: absolute;
+  content: '';
+  width: 5px;
+  height: 5px;
+  background-color: rgb(239, 96, 120);
+  border-radius: 50%;
+  top: -2.5px;
+  left: 0px;
+}

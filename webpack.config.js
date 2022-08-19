@@ -41,6 +41,11 @@ let config = {
         ],
       },
       {
+        test: /(?<!module)\.scss$/,
+        sideEffects: true,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
