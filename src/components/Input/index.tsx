@@ -1,63 +1,62 @@
-import { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import cx from 'classnames'
+import { FC } from 'react'
 
-import { postData } from '../../store/sliceData'
+import styles from './index.module.scss'
 
-const Input: FC = () => {
-  const dispatch = useDispatch()
-  const getTodatDateString = () => {
-    const currentDate = new Date().toJSON().slice(0, 10)
-    return currentDate
-  }
-  const [error, setError] = useState()
-  const [state, setState] = useState({ type: '', date: getTodatDateString(), severity: '' })
+type Props = {
+  type: 'standard' | 'error' | 'creditCard' | 'success' | 'password'
+  disabled?: boolean
+  placeholder?: string
+  state?: any
+  size: 'small' | 'medium' | 'large'
+  setState?: (value: string) => {}
+  validation?: (value: string) => {}
+}
+const MyInput: FC<Props> = (props) => {
+  const {
+    placeholder = 'placeholder',
+    state = 'hello',
+    size = 'medium',
+    disabled = false,
+    setState = () => {},
+    type,
+    validation = () => {},
+  } = props
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    if (!state.type) {
-      //@ts-ignore
-      setError('Choose type')
-      return
-    }
-    //@ts-ignore
-    setError('')
-    //@ts-ignore
-    dispatch(postData(state))
-  }
+  const className = cx({
+    [styles.default]: true,
+    [styles[type]]: type,
+    [styles[size]]: size,
+  })
+
   const onChange = (event: any) => {
-    const name = event.currentTarget.name
     const value = event.currentTarget.value
-    setState((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      }
-    })
+    validation(value)
+    setState(value)
+  }
+
+  if (type === 'password') {
+    return (
+      <input
+        type="password"
+        className={className}
+        placeholder="input password"
+        onChange={onChange}
+        disabled={disabled}
+      />
+    )
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label>Input date</label>
-        <input name="date" type="date" onChange={onChange} value={state.date} />
-        <select name="type" defaultValue="choose" onChange={onChange}>
-          <option value="choose">Choose event type</option>
-          <option value="Had flows">Had flows</option>
-          <option value="No flows">No flows</option>
-          <option value="Breast pain">Breast pain</option>
-          <option value="Meds">Meds</option>
-        </select>
-        <select name="severity" defaultValue="choose" onChange={onChange}>
-          <option value="choose">Choose event type</option>
-          <option value="low">low</option>
-          <option value="medium">medium</option>
-          <option value="heavy">heavy</option>
-        </select>
-        <button type="submit">Add data</button>
-        {error && <div>Choose type</div>}
-      </form>
-    </>
+    <input
+      type="text"
+      placeholder={placeholder}
+      disabled={disabled}
+      className={className}
+      onChange={onChange}
+      value={state}
+    />
   )
 }
 
-export default Input
+export default MyInput

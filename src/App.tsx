@@ -6,7 +6,7 @@ import './App.css'
 import PeriodsCalendar from './components/Calendar/index'
 import Data from './components/Data/index'
 import RoundButton from './components/RoundButton/index'
-import Sympthoms from './components/Sympthoms/index'
+import Symptoms from './components/Symptoms/index'
 import store from './store'
 
 const App: FC = () => {
@@ -16,7 +16,7 @@ const App: FC = () => {
         <div className="container">
           <PeriodsCalendar />
           <RoundButton />
-          <Sympthoms />
+          <Symptoms />
           <Data />
         </div>
       </Provider>

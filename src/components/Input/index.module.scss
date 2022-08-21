@@ -1,0 +1,57 @@
+@use '../../sass/constants.scss' as *;
+
+.default {
+  width: 288px;
+  height: 48px;
+  border-radius: 12px;
+  color: $color-greyscale-content;
+}
+.default:disabled {
+  background-color: $color-greyscale-background-grey;
+  color: $color-greyscale-secondary-grey;
+  border: 1px solid $color-greyscale-secondary-grey;
+  pointer-events: none;
+}
+
+.standard {
+  border: 1px solid $color-greyscale-secondary-grey;
+}
+
+.standard:focus {
+  border: 2px solid $color-primary;
+  outline: 4px solid $color-primary-light;
+}
+.password {
+  border: 1px solid $color-greyscale-secondary-grey;
+}
+
+.password:focus {
+  border: 2px solid $color-primary;
+  outline: 4px solid $color-primary-light;
+}
+
+.error {
+  border: 1px solid $color-supporting-errorred;
+}
+
+.error:focus {
+  border: 1px solid $color-supporting-errorred;
+  outline: 4px solid $color-supporting-errorred-light;
+}
+
+.success {
+  border: 1px solid $color-supporting-sucess-green;
+}
+
+.small {
+  font-size: 13px;
+  padding: 8px 12px;
+}
+.medium {
+  font-size: 16px;
+  padding: 12px 16px;
+}
+.large {
+  font-size: 20px;
+  padding: 20px 24px;
+}

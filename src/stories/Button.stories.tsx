@@ -15,33 +15,33 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
 export const Primary = Template.bind({})
 
 Primary.args = {
-  primary: true,
+  type: 'primary',
   text: 'Click',
 }
 
 export const Secondary = Template.bind({})
 
 Secondary.args = {
-  primary: false,
+  type: 'secondary',
   text: 'Click',
 }
 
 export const Outlined = Template.bind({})
 
 Outlined.args = {
-  outlined: true,
+  type: 'outlined',
   text: 'Click',
 }
 export const Flat = Template.bind({})
 
 Flat.args = {
-  flat: true,
+  type: 'flat',
   text: 'Click',
 }
 export const Danger = Template.bind({})
 
 Danger.args = {
-  danger: true,
+  type: 'danger',
   text: 'Click',
 }
 

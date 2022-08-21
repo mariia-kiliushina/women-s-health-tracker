@@ -1,26 +1,29 @@
 import cx from 'classnames'
-import { FC } from 'react'
+import { FC, MouseEventHandler } from 'react'
 
-import symptoms from '../../../public/symptoms.png'
 import styles from './index.module.scss'
 
 type Props = {
-  standard?: boolean
   marked: boolean
+  src: string
+  symptomText: string
+  onClick: MouseEventHandler<HTMLDivElement>
 }
 
 const SymptomIcon: FC<Props> = (props) => {
-  const { marked } = props
+  const { marked, src, symptomText, onClick } = props
   const className = cx({
-    standard: true,
+    [styles.standard]: true,
     [styles.marked]: marked,
   })
   return (
-    <div className={styles.container}>
-      <div className={className}>
-        <img className={styles.symptomImage} src={symptoms} />
+    <div className={styles.container} onClick={onClick}>
+      <div className={styles.middlware}>
+        <div className={className}>
+          <img className={styles.symptomImage} src={src} />
+        </div>
+        <div className={styles.symptomText}>{symptomText}</div>
       </div>
-      <div className={styles.symptomText}>Cramps</div>
     </div>
   )
 }

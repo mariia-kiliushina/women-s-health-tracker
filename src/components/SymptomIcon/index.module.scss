@@ -1,14 +1,23 @@
 @use '../../sass/constants.scss' as *;
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 82px;
-  width: 82px;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
 }
-
+.middlware {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+}
 .symptomImage {
   border-radius: 50%;
   height: 62px;
@@ -16,12 +25,17 @@
 }
 
 .standard {
-  height: 60px;
-  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .marked {
   border-radius: 50%;
   border: 2px solid $color-primary;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .marked::before {
@@ -38,14 +52,14 @@
   height: 17px;
   border: 1px solid white;
   border-radius: 8.5px;
-  top: 57px;
-  left: 73px;
+  top: 40px;
+  left: 58px;
   background-color: $color-primary;
 }
 
 .symptomText {
   position: absolute;
-  top: 78px;
+  top: 65px;
   height: 16px;
   font-size: 12px;
   font-family: $font-family-primary;

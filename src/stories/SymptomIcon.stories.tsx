@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
+import crumps from '../../public/crumps.png'
 import SymptomIcon from '../components/SymptomIcon'
 
 export default {
@@ -11,10 +12,15 @@ const Template: ComponentStory<typeof SymptomIcon> = (args) => <SymptomIcon {...
 
 export const Standard = Template.bind({})
 
-Standard.args = {}
+Standard.args = {
+  src: crumps,
+  symptomText: 'crumps',
+}
 
 export const Marked = Template.bind({})
 
 Marked.args = {
   marked: true,
+  src: crumps,
+  symptomText: 'crumps',
 }

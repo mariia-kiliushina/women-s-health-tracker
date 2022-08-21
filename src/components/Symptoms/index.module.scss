@@ -1,0 +1,10 @@
+.container {
+  width: 300px;
+  height: 100px;
+  background-color: rgb(235, 115, 135);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

@@ -1,35 +1,25 @@
 import cx from 'classnames'
 import { FC } from 'react'
 
-import './index.scss'
+import styles from './index.module.scss'
 
 type Props = {
-  primary: boolean
+  type: 'primary' | 'secondary' | 'disabled' | 'danger' | 'outlined' | 'flat'
   size: 'small' | 'medium' | 'large'
   text: string
   onClick: () => void
-  disabled: boolean
-  danger: boolean
-  outlined: boolean
-  flat: boolean
 }
 
 const Button: FC<Props> = (props) => {
-  const { primary = true, size = 'medium', text, onClick, disabled, danger, outlined, flat } = props
+  const { type = 'primary', size = 'medium', text, onClick } = props
   const className = cx({
     defaultButton: true,
-    primary: primary,
-    secondary: !primary,
-    danger: danger,
-    outlined: outlined,
-    flat: flat,
-    small: size === 'small',
-    medium: size === 'medium',
-    large: size === 'large',
+    [styles[type]]: type,
+    [styles[size]]: size,
   })
   return (
     <>
-      <button onClick={onClick} className={className} disabled={disabled}>
+      <button onClick={onClick} className={className} disabled={type === 'disabled'}>
         {text}
       </button>
     </>
