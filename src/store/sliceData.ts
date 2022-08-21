@@ -10,16 +10,35 @@ export type IState = {
   loading: boolean
   error: string
   tracks: Record<number, Track>
+  users: any[]
+}
+export interface User {
+  login: string
+  password: string
 }
 
 const initialState: IState = {
   loading: false,
   error: '',
   tracks: [],
+  users: [],
 }
 
-const URL = 'https://women-health-backend.herokuapp.com/api/periods'
-// const URL = '/api/periods'
+// const URLRegister = 'https://women-health-backend.herokuapp.com/api/registration'
+const URLRegister = '/api/registration'
+
+export const registerUser = createAsyncThunk('registerUser', async (user: User) => {
+  const response = await fetch(URLRegister, {
+    body: JSON.stringify(user),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
+  const responseJSON = await response.json()
+  return responseJSON
+})
+
+// const URL = 'https://women-health-backend.herokuapp.com/api/periods'
+const URL = '/api/periods'
 
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
@@ -42,6 +61,10 @@ const dataSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    //@ts-ignore
+    [registerUser.fulfilled]: (state, action) => {
+      state.users.push(action.payload)
+    },
     //@ts-ignore
     [postData.fulfilled]: (state, action) => {
       state.tracks.push(...action.payload)

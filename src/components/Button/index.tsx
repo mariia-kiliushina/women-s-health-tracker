@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 
 type Props = {
   type: 'primary' | 'secondary' | 'disabled' | 'danger' | 'outlined' | 'flat'
-  size: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   text: string
   onClick: () => void
 }
@@ -13,7 +13,7 @@ type Props = {
 const Button: FC<Props> = (props) => {
   const { type = 'primary', size = 'medium', text, onClick } = props
   const className = cx({
-    defaultButton: true,
+    [styles.defaultButton]: true,
     [styles[type]]: type,
     [styles[size]]: size,
   })

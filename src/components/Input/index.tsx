@@ -1,25 +1,25 @@
 import cx from 'classnames'
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 
 import styles from './index.module.scss'
 
 type Props = {
-  type: 'standard' | 'error' | 'creditCard' | 'success' | 'password'
+  type?: 'standard' | 'error' | 'creditCard' | 'success' | 'password'
   disabled?: boolean
   placeholder?: string
   state?: any
-  size: 'small' | 'medium' | 'large'
-  setState?: (value: string) => {}
+  size?: 'small' | 'medium' | 'large'
+  setState?: Dispatch<SetStateAction<{ login: string; password: string }>>
   validation?: (value: string) => {}
 }
 const MyInput: FC<Props> = (props) => {
   const {
     placeholder = 'placeholder',
-    state = 'hello',
+    state = '',
     size = 'medium',
     disabled = false,
     setState = () => {},
-    type,
+    type = 'standard',
     validation = () => {},
   } = props
 
@@ -30,14 +30,21 @@ const MyInput: FC<Props> = (props) => {
   })
 
   const onChange = (event: any) => {
+    const name = event.currentTarget.name
     const value = event.currentTarget.value
     validation(value)
-    setState(value)
+    setState((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      }
+    })
   }
 
   if (type === 'password') {
     return (
       <input
+        name="password"
         type="password"
         className={className}
         placeholder="input password"
@@ -49,6 +56,7 @@ const MyInput: FC<Props> = (props) => {
 
   return (
     <input
+      name="login"
       type="text"
       placeholder={placeholder}
       disabled={disabled}
