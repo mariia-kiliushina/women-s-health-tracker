@@ -38,7 +38,8 @@ export const registerUser = createAsyncThunk('registerUser', async (user: User) 
 })
 
 // const URL = 'https://women-health-backend.herokuapp.com/api/periods'
-const URL = '/api/periods'
+const URL = 'http://localhost:8080/api/periods'
+// const URL = '/api/periods'
 
 export const getData = createAsyncThunk('getData', async () => {
   const response = await fetch(URL)
