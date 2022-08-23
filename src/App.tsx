@@ -14,16 +14,19 @@ import SignUp from './components/SignUp/index'
 import store from './store'
 
 const App: FC = () => {
-  const isLogged = true
+  // const isLogged = true
   // const isLogged = false
   return (
     <ConfigProvider direction="ltr">
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            {!isLogged && <Route path="/" element={<LogIn />} />}
-            {isLogged && <Route path="/" element={<Data />} />}
+            <Route path="/" element={<LogIn />} />
+            <Route path="/data" element={<Data />} />
             <Route path="sign-up" element={<SignUp />} />
+            {/* {!isLogged && <Route path="/" element={<LogIn />} />}
+            {isLogged && <Route path="/" element={<Data />} />} */}
+            {/* <Route path="sign-up" element={<SignUp />} /> */}
             {/* <Route path="/" element={<LogIn />} />
             <Route path="/calendar" element={<PeriodsCalendar />} /> */}
             {/* <div className="container">

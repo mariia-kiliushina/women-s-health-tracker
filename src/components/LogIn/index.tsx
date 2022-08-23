@@ -1,7 +1,10 @@
 import { FC, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { AppDispatch } from 'src/store'
 
 import girlWithFlowers from '../../../public/girl-flowers.png'
+import { authenticateUser } from '../../store/sliceData'
 import Button from '../Button'
 import Image from '../Image'
 import Input from '../Input'
@@ -10,6 +13,7 @@ import styles from './index.module.scss'
 type Props = {}
 
 const LogIn: FC<Props> = (props) => {
+  const dispatch = useDispatch<AppDispatch>()
   const initState = {
     login: '',
     password: '',
@@ -20,6 +24,10 @@ const LogIn: FC<Props> = (props) => {
     navigator('../sign-up', { replace: true })
   }
   const {} = props
+
+  const onAuthorization = () => {
+    dispatch(authenticateUser(state))
+  }
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -34,7 +42,7 @@ const LogIn: FC<Props> = (props) => {
         <div className={styles.text}>Welcome to Femme</div>
         <Input placeholder="Email/User name" state={state.login} setState={setState} />
         <Input placeholder="Password" type="password" state={state.password} setState={setState} />
-        <Button type="primary" text={'Sign In'} onClick={() => alert('Submitted')} />
+        <Button type="primary" text={'Sign In'} onClick={onAuthorization} />
         <div className={styles.text}>or</div>
         <Button type="primary" text={'Sign Up'} onClick={onSignUp} />
       </div>

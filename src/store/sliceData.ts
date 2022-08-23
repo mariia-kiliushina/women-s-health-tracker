@@ -24,6 +24,19 @@ const initialState: IState = {
   users: [],
 }
 
+// const URLAuth = 'https://women-health-backend.herokuapp.com/api/authentication'
+const URLAuth = '/api/authentication'
+
+export const authenticateUser = createAsyncThunk('authenticateUser', async (user: User) => {
+  const response = await fetch(URLAuth, {
+    body: JSON.stringify(user),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+  })
+  const responseJSON = await response.json()
+  return responseJSON
+})
+
 // const URLRegister = 'https://women-health-backend.herokuapp.com/api/registration'
 const URLRegister = '/api/registration'
 
@@ -38,11 +51,16 @@ export const registerUser = createAsyncThunk('registerUser', async (user: User) 
 })
 
 // const URL = 'https://women-health-backend.herokuapp.com/api/periods'
-const URL = 'http://localhost:8080/api/periods'
-// const URL = '/api/periods'
+const URL = '/api/periods'
 
 export const getData = createAsyncThunk('getData', async () => {
-  const response = await fetch(URL)
+  const response = await fetch(URL, {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTM0OTYsImV4cCI6MTY2MTMzOTg5Nn0.VHidxRPUqFVApJ6WEKrR59jju-mfanKWqWwSFCWeXxY',
+    },
+    method: 'GET',
+  })
   const responseJSON = await response.json()
   return responseJSON
 })
@@ -50,7 +68,11 @@ export const getData = createAsyncThunk('getData', async () => {
 export const postData = createAsyncThunk('postData', async (newTrack) => {
   const response = await fetch(URL, {
     body: JSON.stringify(newTrack),
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTM0OTYsImV4cCI6MTY2MTMzOTg5Nn0.VHidxRPUqFVApJ6WEKrR59jju-mfanKWqWwSFCWeXxY',
+    },
     method: 'POST',
   })
   const responseJSON = await response.json()
