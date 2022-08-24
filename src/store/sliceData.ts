@@ -27,26 +27,29 @@ const initialState: IState = {
   users: [],
 }
 
-const URLprefix =
+// const URL_PREFIX = 'https://women-health-backend.herokuapp.com/api/'
+// const URL_PREFIX = '/api/'
+
+const URL_PREFIX =
   process.env.NODE_ENV !== 'development'
     ? 'https://women-health-backend.herokuapp.com/api/'
     : '/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
-  const response = await fetch(URLprefix + 'logout', {
+  const response = await fetch(URL_PREFIX + 'logout', {
     method: 'GET',
   })
   return response
 })
 
 export const refreshToken = createAsyncThunk('refreshToken', async () => {
-  const response = await fetch(URLprefix + 'refresh')
+  const response = await fetch(URL_PREFIX + 'refresh')
   const responseJSON = await response.json()
   return responseJSON
 })
 
 export const authenticateUser = createAsyncThunk('authenticateUser', async (user: User) => {
-  const response = await fetch(URLprefix + 'authentication', {
+  const response = await fetch(URL_PREFIX + 'authentication', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -64,7 +67,7 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 })
 
 export const registerUser = createAsyncThunk('registerUser', async (user: User) => {
-  const response = await fetch(URLprefix + 'registration', {
+  const response = await fetch(URL_PREFIX + 'registration', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -78,7 +81,7 @@ export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
   const token = state.dataSliceReducer.accessToken
   console.log('token')
   console.log(token)
-  const response = await fetch(URLprefix + 'periods', {
+  const response = await fetch(URL_PREFIX + 'periods', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -91,7 +94,7 @@ export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
 export const postData = createAsyncThunk('postData', async (newTrack, thunkAPI) => {
   const state: any = thunkAPI.getState()
   const token = state.dataSliceReducer.accessToken
-  const response = await fetch(URLprefix + 'periods', {
+  const response = await fetch(URL_PREFIX + 'periods', {
     body: JSON.stringify(newTrack),
     headers: {
       'Content-Type': 'application/json',
