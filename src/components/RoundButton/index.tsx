@@ -33,6 +33,7 @@ const RoundButton: FC = () => {
   function closeModal() {
     setIsOpen(false)
   }
+
   return (
     <>
       <div className={styles.roundPatch}>
@@ -48,6 +49,11 @@ const RoundButton: FC = () => {
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
           <button onClick={closeModal}>close</button>
+          <input type="date" />
+          <select defaultValue="No flows">
+            <option value="Had flows">Had flows</option>
+            <option value="No flows">No flows</option>
+          </select>
           <Input />
         </Modal>
       </div>

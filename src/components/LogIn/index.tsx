@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppDispatch } from 'src/store'
 
+import HorizontalLine from '#components/HorizontalLIne'
+
 import girlWithFlowers from '../../../public/girl-flowers.png'
 import { authenticateUser } from '../../store/sliceData'
 import Button from '../Button'
@@ -19,15 +21,15 @@ const LogIn: FC<Props> = (props) => {
     password: '',
   }
   const [state, setState] = useState(initState)
-  const navigator = useNavigate()
-  const onSignUp = () => {
-    navigator('../sign-up', { replace: true })
-  }
+
   const {} = props
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
     dispatch(authenticateUser(state))
+    setTimeout(() => navigate('/Main'), 500)
   }
 
   return (
@@ -42,7 +44,7 @@ const LogIn: FC<Props> = (props) => {
       </div>
       <div className={styles.inputsContainer}>
         <div className={styles.text}>Welcome to Femme</div>
-        <form onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <Input placeholder="Email/User name" state={state.login} setState={setState} />
           <Input
             placeholder="Password"
@@ -50,13 +52,13 @@ const LogIn: FC<Props> = (props) => {
             state={state.password}
             setState={setState}
           />
-
           <Button inputType="submit" type="primary" text={'Sign In'} onClick={() => {}} />
-
-          <Link to="/data">Go to data</Link>
         </form>
+        <HorizontalLine />
         <div className={styles.text}>or</div>
-        <Button inputType="button" type="primary" text={'Sign Up'} onClick={onSignUp} />
+        <Link to="/sign-up">
+          <Button inputType="button" type="primary" text={'Sign Up'} onClick={() => {}} />
+        </Link>
       </div>
     </div>
   )

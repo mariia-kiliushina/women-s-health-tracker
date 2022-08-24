@@ -27,13 +27,8 @@ const initialState: IState = {
   users: [],
 }
 
-const URL_PREFIX = 'https://women-health-backend.herokuapp.com/api/'
-// const URL_PREFIX = '/api/'
-
-// const URL_PREFIX =
-//   process.env.NODE_ENV !== 'development'
-//     ? 'https://women-health-backend.herokuapp.com/api/'
-//     : '/api/'
+// const URL_PREFIX = 'https://women-health-backend.herokuapp.com/api/'
+const URL_PREFIX = '/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
   const response = await fetch(URL_PREFIX + 'logout', {
@@ -49,7 +44,7 @@ export const refreshToken = createAsyncThunk('refreshToken', async () => {
 })
 
 export const authenticateUser = createAsyncThunk('authenticateUser', async (user: User) => {
-  const response = await fetch(URL_PREFIX + 'authentication', {
+  const response = await fetch('http://localhost:8081/api/authentication', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -72,15 +67,12 @@ export const registerUser = createAsyncThunk('registerUser', async (user: User) 
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
-  console.log(process.env.NODE_ENV)
   return await response.json()
 })
 
 export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
   const state: any = thunkAPI.getState()
   const token = state.dataSliceReducer.accessToken
-  console.log('token')
-  console.log(token)
   const response = await fetch(URL_PREFIX + 'periods', {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -10,6 +10,7 @@ import './App.css'
 // import RoundButton from './components/RoundButton/index'
 // import PeriodsCalendar from './components/Calendar/index'
 import Data from './components/Data/index'
+import Main from './components/Main'
 import SignUp from './components/SignUp/index'
 import RefreshTokenButton from './components/refreshTokenBtn'
 // import Symptoms from './components/Symptoms/index'
@@ -27,6 +28,7 @@ const App: FC = () => {
             <Route path="/logout" element={<LogOut />} />
             <Route path="/refresh" element={<RefreshTokenButton />} />
             <Route path="/data" element={<Data />} />
+            <Route path="/main" element={<Main />} />
             <Route path="/sign-up" element={<SignUp />} />
             {/* {!isLogged && <Route path="/" element={<LogIn />} />}
             {isLogged && <Route path="/" element={<Data />} />} */}

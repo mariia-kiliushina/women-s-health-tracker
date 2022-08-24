@@ -29,7 +29,15 @@
 
 .text {
   color: $color-greyscale-secondary-grey;
-  font-size: 30px;
+  font-size: 24px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
     Verdana, sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 15px;
 }

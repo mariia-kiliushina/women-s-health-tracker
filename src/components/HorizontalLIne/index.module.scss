@@ -1,0 +1,7 @@
+@use '../../sass/constants.scss' as *;
+
+.line {
+  background-color: $color-greyscale-secondary-grey;
+  width: 100%;
+  height: 1px;
+}

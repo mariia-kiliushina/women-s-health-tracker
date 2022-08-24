@@ -20,13 +20,14 @@ const Button: FC<Props> = (props) => {
   })
   return (
     <>
-      <input
+      <button
         type={inputType}
         onClick={onClick}
         className={className}
         disabled={type === 'disabled'}
-        value={text}
-      />
+      >
+        {text}
+      </button>
     </>
   )
 }
