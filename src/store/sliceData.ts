@@ -27,13 +27,13 @@ const initialState: IState = {
   users: [],
 }
 
-// const URL_PREFIX = 'https://women-health-backend.herokuapp.com/api/'
+const URL_PREFIX = 'https://women-health-backend.herokuapp.com/api/'
 // const URL_PREFIX = '/api/'
 
-const URL_PREFIX =
-  process.env.NODE_ENV !== 'development'
-    ? 'https://women-health-backend.herokuapp.com/api/'
-    : '/api/'
+// const URL_PREFIX =
+//   process.env.NODE_ENV !== 'development'
+//     ? 'https://women-health-backend.herokuapp.com/api/'
+//     : '/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
   const response = await fetch(URL_PREFIX + 'logout', {
