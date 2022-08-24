@@ -28,9 +28,9 @@ const initialState: IState = {
 }
 
 const URLprefix =
-  (process.env.NODE_ENV || '').trim() !== 'production'
-    ? '/api/'
-    : 'https://women-health-backend.herokuapp.com/api/'
+  process.env.NODE_ENV !== 'development'
+    ? 'https://women-health-backend.herokuapp.com/api/'
+    : '/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
   const response = await fetch(URLprefix + 'logout', {
@@ -69,6 +69,7 @@ export const registerUser = createAsyncThunk('registerUser', async (user: User) 
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
+  console.log(process.env.NODE_ENV)
   return await response.json()
 })
 
