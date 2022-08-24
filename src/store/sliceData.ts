@@ -27,11 +27,11 @@ const initialState: IState = {
   users: [],
 }
 
-const URLprefix =
-  (process.env.NODE_ENV || '').trim() === 'development'
-    ? '/api/'
-    : 'https://women-health-backend.herokuapp.com/api/'
-// const URLprefix = 'https://women-health-backend.herokuapp.com/api/'
+// const URLprefix =
+//   (process.env.NODE_ENV || '').trim() === 'development'
+//     ? '/api/'
+//     : 'https://women-health-backend.herokuapp.com/api/'
+const URLprefix = 'https://women-health-backend.herokuapp.com/api/'
 // const URLprefix = '/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
