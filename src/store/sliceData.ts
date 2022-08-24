@@ -27,12 +27,10 @@ const initialState: IState = {
   users: [],
 }
 
-// const URLprefix =
-//   (process.env.NODE_ENV || '').trim() === 'development'
-//     ? '/api/'
-//     : 'https://women-health-backend.herokuapp.com/api/'
-const URLprefix = 'https://women-health-backend.herokuapp.com/api/'
-// const URLprefix = '/api/'
+const URLprefix =
+  (process.env.NODE_ENV || '').trim() !== 'production'
+    ? '/api/'
+    : 'https://women-health-backend.herokuapp.com/api/'
 
 export const logout = createAsyncThunk('logout', async () => {
   const response = await fetch(URLprefix + 'logout', {
@@ -66,13 +64,12 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 })
 
 export const registerUser = createAsyncThunk('registerUser', async (user: User) => {
-  const response = await fetch(URLprefix + 'register', {
+  const response = await fetch(URLprefix + 'registration', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
-  const responseJSON = await response.json()
-  return responseJSON
+  return await response.json()
 })
 
 export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
@@ -82,7 +79,6 @@ export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
   console.log(token)
   const response = await fetch(URLprefix + 'periods', {
     headers: {
-      // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InVzZXIxOSIsImlhdCI6MTY2MTMzMzY5NiwiZXhwIjoxNjYxMzM0Mjk2fQ.gf9HttK7RG7sPWBx8s_7Fj45mr8RklRbinnoTVzH_0s`,
       Authorization: `Bearer ${token}`,
     },
     method: 'GET',
