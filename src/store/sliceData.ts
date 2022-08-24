@@ -51,7 +51,6 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
   const response = await fetch(URLprefix + 'authentication', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     method: 'POST',
   })
 
