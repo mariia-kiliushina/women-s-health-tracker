@@ -8,10 +8,11 @@ type Props = {
   size?: 'small' | 'medium' | 'large'
   text: string
   onClick: () => void
+  inputType?: 'submit' | 'button'
 }
 
 const Button: FC<Props> = (props) => {
-  const { type = 'primary', size = 'medium', text, onClick } = props
+  const { type = 'primary', size = 'medium', inputType = 'button', text, onClick } = props
   const className = cx({
     [styles.defaultButton]: true,
     [styles[type]]: type,
@@ -19,9 +20,13 @@ const Button: FC<Props> = (props) => {
   })
   return (
     <>
-      <button onClick={onClick} className={className} disabled={type === 'disabled'}>
-        {text}
-      </button>
+      <input
+        type={inputType}
+        onClick={onClick}
+        className={className}
+        disabled={type === 'disabled'}
+        value={text}
+      />
     </>
   )
 }

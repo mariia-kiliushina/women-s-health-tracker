@@ -1,21 +1,21 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-interface State {
+export interface IUsersState {
   userName: string
   userId: string
 }
 
-const initialState: State = { userName: '', userId: '' }
+const initialState: IUsersState = { userName: '', userId: '' }
 
 const userSlice = createSlice({
   name: 'period-user',
   initialState,
   reducers: {
-    logInUser: (state: State, action: PayloadAction<State>) => {
+    logInUser: (state: IUsersState, action: PayloadAction<IUsersState>) => {
       state.userName = action.payload.userName
       state.userId = action.payload.userId
     },
-    logOutUser: (state: State) => {
+    logOutUser: (state: IUsersState) => {
       state.userName = ''
       state.userId = ''
     },

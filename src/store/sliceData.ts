@@ -6,7 +6,9 @@ export interface Track {
   type: string
   severity: string
 }
+
 export type IState = {
+  accessToken: string
   loading: boolean
   error: string
   tracks: Record<number, Track>
@@ -18,11 +20,31 @@ export interface User {
 }
 
 const initialState: IState = {
+  accessToken: '',
   loading: false,
   error: '',
   tracks: [],
   users: [],
 }
+
+// const URLlogout = 'https://women-health-backend.herokuapp.com/api/logout'
+const URLlogout = '/api/logout'
+
+export const logout = createAsyncThunk('logout', async () => {
+  const response = await fetch(URLlogout, {
+    method: 'GET',
+  })
+  return response
+})
+
+// const URLrefresh = 'https://women-health-backend.herokuapp.com/api/refresh'
+const URLrefresh = '/api/refresh'
+
+export const refreshToken = createAsyncThunk('refreshToken', async () => {
+  const response = await fetch(URLrefresh)
+  const responseJSON = await response.json()
+  return responseJSON
+})
 
 // const URLAuth = 'https://women-health-backend.herokuapp.com/api/authentication'
 const URLAuth = '/api/authentication'
@@ -31,8 +53,17 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
   const response = await fetch(URLAuth, {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     method: 'POST',
   })
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      const refreshed = await refreshToken()
+      return refreshed
+    }
+    throw new Error(`${response.status} ${response.statusText}`)
+  }
   const responseJSON = await response.json()
   return responseJSON
 })
@@ -53,11 +84,15 @@ export const registerUser = createAsyncThunk('registerUser', async (user: User) 
 // const URL = 'https://women-health-backend.herokuapp.com/api/periods'
 const URL = '/api/periods'
 
-export const getData = createAsyncThunk('getData', async () => {
+export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
+  const state: any = thunkAPI.getState()
+  const token = state.dataSliceReducer.accessToken
+  console.log('token')
+  console.log(token)
   const response = await fetch(URL, {
     headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTM0OTYsImV4cCI6MTY2MTMzOTg5Nn0.VHidxRPUqFVApJ6WEKrR59jju-mfanKWqWwSFCWeXxY',
+      // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InVzZXIxOSIsImlhdCI6MTY2MTMzMzY5NiwiZXhwIjoxNjYxMzM0Mjk2fQ.gf9HttK7RG7sPWBx8s_7Fj45mr8RklRbinnoTVzH_0s`,
+      Authorization: `Bearer ${token}`,
     },
     method: 'GET',
   })
@@ -65,13 +100,14 @@ export const getData = createAsyncThunk('getData', async () => {
   return responseJSON
 })
 
-export const postData = createAsyncThunk('postData', async (newTrack) => {
+export const postData = createAsyncThunk('postData', async (newTrack, thunkAPI) => {
+  const state: any = thunkAPI.getState()
+  const token = state.dataSliceReducer.accessToken
   const response = await fetch(URL, {
     body: JSON.stringify(newTrack),
     headers: {
       'Content-Type': 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTM0OTYsImV4cCI6MTY2MTMzOTg5Nn0.VHidxRPUqFVApJ6WEKrR59jju-mfanKWqWwSFCWeXxY',
+      Authorization: `Bearer ${token}`,
     },
     method: 'POST',
   })
@@ -84,6 +120,10 @@ const dataSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    //@ts-ignore
+    [authenticateUser.fulfilled]: (state, action) => {
+      state.accessToken = action.payload.accessToken
+    },
     //@ts-ignore
     [registerUser.fulfilled]: (state, action) => {
       state.users.push(action.payload)

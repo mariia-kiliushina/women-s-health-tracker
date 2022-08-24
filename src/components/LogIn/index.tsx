@@ -1,6 +1,6 @@
-import { FC, useState } from 'react'
+import { FC, SyntheticEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppDispatch } from 'src/store'
 
 import girlWithFlowers from '../../../public/girl-flowers.png'
@@ -25,9 +25,11 @@ const LogIn: FC<Props> = (props) => {
   }
   const {} = props
 
-  const onAuthorization = () => {
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault()
     dispatch(authenticateUser(state))
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -40,11 +42,21 @@ const LogIn: FC<Props> = (props) => {
       </div>
       <div className={styles.inputsContainer}>
         <div className={styles.text}>Welcome to Femme</div>
-        <Input placeholder="Email/User name" state={state.login} setState={setState} />
-        <Input placeholder="Password" type="password" state={state.password} setState={setState} />
-        <Button type="primary" text={'Sign In'} onClick={onAuthorization} />
+        <form onSubmit={handleSubmit}>
+          <Input placeholder="Email/User name" state={state.login} setState={setState} />
+          <Input
+            placeholder="Password"
+            type="password"
+            state={state.password}
+            setState={setState}
+          />
+
+          <Button inputType="submit" type="primary" text={'Sign In'} onClick={() => {}} />
+
+          <Link to="/data">Go to data</Link>
+        </form>
         <div className={styles.text}>or</div>
-        <Button type="primary" text={'Sign Up'} onClick={onSignUp} />
+        <Button inputType="button" type="primary" text={'Sign Up'} onClick={onSignUp} />
       </div>
     </div>
   )
