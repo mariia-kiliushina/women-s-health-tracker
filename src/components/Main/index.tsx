@@ -7,16 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { IState, Track, getData } from '../../store/sliceData'
 import { IUsersState } from '../../store/sliceUser'
 
-let periods = ['2022/08/26', '2022/08/27', '2022/08/28']
-
-//@ts-ignore
-export const dateCellRenderForPeriods = (value: any) => {
-  let dateValue = value.format('yyyy/MM/DD')
-  if (periods.includes(dateValue)) {
-    return <div className="periods">{value.format('DD')}</div>
-  }
-}
-
 const Main: FC = () => {
   const dispatch = useAppDispatch()
 
@@ -28,10 +18,23 @@ const Main: FC = () => {
     (state: { dataSliceReducer: IState; userSliceReducer: IUsersState }) =>
       state.dataSliceReducer.tracks,
   )
+  let periodDates = [{}]
+  if (tracks) {
+    let arr = Object.values(tracks)
+    periodDates = arr.filter((period) => period.type == 'Had flows').map((period) => period.date)
+  }
+
+  const dateCellRenderForPeriods = (value: any) => {
+    let dateValue = value.format('YYYY-MM-DD')
+    if (periodDates.includes(dateValue)) {
+      return <div className="periods">{value.format('DD')}</div>
+    }
+    return
+  }
+
   if (!tracks) {
     return <div>Server error</div>
   }
-  console.log(tracks)
 
   return (
     <>

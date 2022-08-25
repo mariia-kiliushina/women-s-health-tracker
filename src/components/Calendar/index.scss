@@ -8,13 +8,15 @@
   width: 250px;
 }
 
-.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+.ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner
+  .ant-picker-calendar-date-today {
   background-color: $color-secondary;
   border-radius: 50%;
 }
-.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner .periods {
-  background-color: $color-secondary;
-}
+// .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner .periods {
+//   background-color: $color-secondary;
+// }
 
 .periods {
   color: white;
