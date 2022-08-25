@@ -44,7 +44,7 @@ export const refreshToken = createAsyncThunk('refreshToken', async () => {
 })
 
 export const authenticateUser = createAsyncThunk('authenticateUser', async (user: User) => {
-  const response = await fetch('http://localhost:8081/api/authentication', {
+  const response = await fetch(URL_PREFIX + 'authentication', {
     body: JSON.stringify(user),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',

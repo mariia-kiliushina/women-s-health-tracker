@@ -11,7 +11,7 @@ let config = {
     historyApiFallback: true,
     port: 8080,
     proxy: {
-      '/api': 'http://localhost:8081',
+      '/api': 'http://localhost:8082',
     },
   },
   mode: 'development',
