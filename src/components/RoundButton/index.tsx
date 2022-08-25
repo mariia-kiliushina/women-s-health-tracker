@@ -1,8 +1,10 @@
-//@ts-nocheck
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import Modal from 'react-modal'
 
-import Input from '../Input'
+import Button from '#components/Button'
+
+import { useAppDispatch } from '../../hooks/hooks'
+import { postData } from '../../store/sliceData'
 import styles from './index.module.scss'
 
 const customStyles = {
@@ -18,15 +20,18 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 const RoundButton: FC = () => {
-  let subtitle
+  let subtitle: any
   const [modalIsOpen, setIsOpen] = useState(false)
+  const dispatch = useAppDispatch()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
+  const severityRef = useRef<HTMLSelectElement>(null)
 
   function openModal() {
     setIsOpen(true)
   }
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00'
   }
 
@@ -34,6 +39,17 @@ const RoundButton: FC = () => {
     setIsOpen(false)
   }
 
+  const handleAddRecord = () => {
+    const obj = {
+      //@ts-ignore
+      date: inputRef.current.value,
+      //@ts-ignore
+      type: selectRef.current.value,
+      //@ts-ignore
+      severity: severityRef.current.value,
+    }
+    dispatch(postData(obj))
+  }
   return (
     <>
       <div className={styles.roundPatch}>
@@ -49,12 +65,18 @@ const RoundButton: FC = () => {
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
           <button onClick={closeModal}>close</button>
-          <input type="date" />
-          <select defaultValue="No flows">
+          <input ref={inputRef} type="date" />
+          <select ref={selectRef} defaultValue="No flows">
             <option value="Had flows">Had flows</option>
             <option value="No flows">No flows</option>
           </select>
-          <Input />
+          <select ref={severityRef} defaultValue="Medium">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="Heavy">Heavy</option>
+          </select>
+          <Button type="secondary" text="Add record" onClick={handleAddRecord} />
+          {/* <Input /> */}
         </Modal>
       </div>
     </>

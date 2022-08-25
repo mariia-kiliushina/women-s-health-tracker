@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface Track {
-  id: number
+  id?: number
   date: string
   type: string
   severity: string
@@ -83,7 +83,7 @@ export const getData = createAsyncThunk('getData', async (_, thunkAPI) => {
   return responseJSON
 })
 
-export const postData = createAsyncThunk('postData', async (newTrack, thunkAPI) => {
+export const postData = createAsyncThunk('postData', async (newTrack: Track, thunkAPI) => {
   const state: any = thunkAPI.getState()
   const token = state.dataSliceReducer.accessToken
   const response = await fetch(URL_PREFIX + 'periods', {
